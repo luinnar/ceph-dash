@@ -208,12 +208,8 @@ $(function () {
 
 
               if (timeDiff > outDatedWarning) {
-                  msg = 'Content has last been refreshed more than ' + timeDiff + ' seconds before';
+                  $('#last_update').html(message('danger', 'Content has last been refreshed more than ' + timeDiff + ' seconds before'));
                   $('#last_update').show();
-                  $('#last_update').tooltip({
-                      placement: 'bottom',
-                  });
-                  $('#last_update').attr('data-original-title', msg);
               }
           },
           timeout: (refreshTimeout * 1000)
