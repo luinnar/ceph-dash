@@ -18,6 +18,15 @@
     font-weight: bold;
 }
 
+.panel-osd .col-md-4 {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.panel-osd .panel-body .panel-body {
+    font-size: 50px;
+}
+
 .cd-collapsable h3:after {
     font-family: 'Glyphicons Halflings';
     content: "\e113";
@@ -52,4 +61,8 @@
     border: 1px solid #000;
     padding: 2px;
     background-color: #272b30;
+}
+
+#utilization_info {
+    font-size: 20px;
 }

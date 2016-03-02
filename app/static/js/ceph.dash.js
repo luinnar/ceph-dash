@@ -397,6 +397,7 @@ $(function () {
 
             // update monitor status
             $("#monitor_status").empty();
+
             $.each(monmapMons, function(index, mon) {
                 health = 'HEALTH_ERR'
                 $.each(timechekMons, function(index, mon_health) {
@@ -405,7 +406,7 @@ $(function () {
                     }
                 });
                 msg = 'Monitor ' + mon['name'].toUpperCase() + ': ' + health;
-                $("#monitor_status").append('<div class="col-md-4">' + message(ceph2bootstrap[health], msg) + '</div>');
+                $("#monitor_status").append(message(ceph2bootstrap[health], msg));
             });
 
             if ($('#graphite1').length > 0) {
