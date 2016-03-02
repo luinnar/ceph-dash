@@ -3,6 +3,7 @@
 
 import json
 import subprocess
+import os
 
 from flask import request
 from flask import render_template
@@ -25,17 +26,32 @@ class CephClusterCommand(dict):
         if command not in ['status', 'osd tree']:
             raise ValueError('Command {0} is not allowed'.format(command))
 
-        user    = options.get('mon_user', 'ceph')
-        host    = options.get('mon_host', 'mon')
-        command = 'ssh {0}@{1} "ceph {2} --format=json"'.format(user, host, command)
+        user    = options['mon_user']
+        hosts   = options['mon_host']
+        error   = None
+        result  = None
 
-        try:
-            result = subprocess.check_output(command, shell=True, universal_newlines=True)
+        if not isinstance(hosts, list):
+            hosts = [hosts]
 
-            self.update(json.loads(result.strip()))
+        for host in hosts:
+            # tries connect to mons until some returns correct response
+            shellCmd = 'ssh {0}@{1} "ceph {2} --format=json"'.format(user, host, command)
 
-        except Exception as e:
-            self['err'] = str(e)
+            try:
+                result  = subprocess.check_output(shellCmd, shell=True, universal_newlines=True)
+                result  = json.loads(result.strip())
+                error   = None
+                break   # everything went good
+
+            except Exception as e:
+                result  = None
+                error   = e
+
+        if result is not None:
+            self.update(result)
+        elif error is not None:
+           self['err'] = str(error)
 
 
 def find_host_for_osd(osd, osd_status):
