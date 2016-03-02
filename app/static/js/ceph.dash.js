@@ -1,7 +1,7 @@
 $(function () {
     // global variable to configure refresh interval and timeout (in seconds!)
-    var refreshInterval = 5;
-    var refreshTimeout = 3;
+    var refreshInterval = 15;
+    var refreshTimeout = 20;
 
     // calculate outdated warning thresholds
     var outDatedWarning = (refreshInterval * 3);
