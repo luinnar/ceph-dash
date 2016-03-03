@@ -3,6 +3,11 @@ $(function () {
     var refreshInterval = 15;
     var refreshTimeout = 20;
 
+    if(window.location.hash == '#lubiszto')
+    {
+        refreshInterval = 1;
+    }
+
     // calculate outdated warning thresholds
     var outDatedWarning = (refreshInterval * 3);
     var outDatedError = (refreshInterval * 10);
