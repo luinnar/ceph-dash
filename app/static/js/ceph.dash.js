@@ -1,6 +1,6 @@
 $(function () {
     // global variable to configure refresh interval and timeout (in seconds!)
-    var refreshInterval = 15;
+    var refreshInterval = 5;
     var refreshTimeout = 20;
 
     if(window.location.hash == '#lubiszto')
