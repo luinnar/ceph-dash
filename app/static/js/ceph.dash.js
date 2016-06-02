@@ -325,7 +325,7 @@ $(function () {
 
             // *monitor state*
             monmapMons = data['monmap']['mons'];
-            timechekMons = data['health']['health_services']['mons'];
+            timechekMons = data['health']['health']['health_services'][0]['mons'];
             // }}}
 
             // Update Content {{{
