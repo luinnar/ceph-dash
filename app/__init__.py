@@ -7,6 +7,8 @@ from os.path import dirname
 from os.path import join
 from flask import Flask
 
+from app.dashboard.views import DashboardResource
+
 app = Flask(__name__)
 app.template_folder = join(dirname(__file__), 'templates')
 app.static_folder = join(dirname(__file__), 'static')
@@ -35,6 +37,7 @@ app.config['USER_CONFIG'] = UserConfig()
 # only load influxdb endpoint if module is available
 try:
     import influxdb
+    assert influxdb
 except ImportError:
     # remove influxdb config because we can't use it
     if 'influxdb' in app.config['USER_CONFIG']:
@@ -55,5 +58,4 @@ if 'graphite' in app.config['USER_CONFIG']:
     app.register_blueprint(GraphiteResource.as_blueprint())
 
 # load dashboard and graphite endpoint
-from app.dashboard.views import DashboardResource
 app.register_blueprint(DashboardResource.as_blueprint())
